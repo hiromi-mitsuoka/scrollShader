@@ -4,6 +4,7 @@ precision mediump float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
+uniform float u_scroll;
 // uniform float u_mouse;
 
 void main(){
@@ -11,7 +12,8 @@ void main(){
   
   st*=2.;
   
-  st.x+=sin(st.y*20.+u_time*2.)*.05;
+  st.x+=sin(st.y*u_scroll)*.05;
+  // st.x+=sin(st.y*20.+u_time*2.)*.05;
   
   float pct=0.;
   
