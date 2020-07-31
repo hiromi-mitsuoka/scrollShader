@@ -33,7 +33,7 @@ function draw() {
 
   waveSphereShader.setUniform('u_resolution', [width, height]);
   waveSphereShader.setUniform('u_time', frameCount * 0.01);
-  waveSphereShader.setUniform('u_scroll', window.pageYOffset * 0.01);
+  waveSphereShader.setUniform('u_scroll', window.pageYOffset * 0.005);
   waveSphereGraphics.background(0);
   waveSphereGraphics.shader(waveSphereShader);
   waveSphereGraphics.rect(300, 300, 100, 100);
@@ -41,7 +41,7 @@ function draw() {
 
   moveRectShader.setUniform('u_resolution', [width, height]);
   moveRectShader.setUniform('u_time', frameCount * 0.01);
-  moveRectShader.setUniform('u_scroll', window.pageYOffset * 0.01);
+  moveRectShader.setUniform('u_scroll', window.pageYOffset * 0.003);
   moveRectGraphics.background(0);
   moveRectGraphics.shader(moveRectShader);
   moveRectGraphics.rect(300, 300, 100, 100);
