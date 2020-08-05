@@ -6,8 +6,14 @@ window.addEventListener('scroll', () => {
 let waveSphereShader;
 let waveSphereGraphics;
 
+let repeatRectShader;
+let repeatRectGraphics;
+
 let moveRectShader;
 let moveRectGraphics;
+
+let randomCrossShader;
+let randomCrossGraphics;
 
 // function windowResized() {
 //   resizeCanvas(windowWidth, windowHeight);
@@ -16,16 +22,20 @@ let moveRectGraphics;
 
 function preload() {
   waveSphereShader = loadShader("../waveShader/waveShader.vert", "../waveShader/waveShader.frag");
+  repeatRectShader = loadShader("../repeatRectShader/repeatRectShader.vert", "../repeatRectShader/repeatRectShader.frag");
   moveRectShader = loadShader("../moveRectShader/moveRectShader.vert", "../moveRectShader/moveRectShader.frag");
+  randomCrossShader = loadShader("../randomCrossShader/randomCrossShader.vert", "../randomCrossShader/randomCrossShader.frag");
 }
 
 function setup() {
-  canvas = createCanvas(600, 600, WEBGL);
+  canvas = createCanvas(windowHeight, windowHeight, WEBGL);
   canvas.style('z-index', '-1');
   pixelDensity(1);
 
-  waveSphereGraphics = createGraphics(300, 300, WEBGL);
-  moveRectGraphics = createGraphics(300, 300, WEBGL);
+  waveSphereGraphics = createGraphics(windowHeight / 2, windowHeight / 2, WEBGL);
+  repeatRectGraphics = createGraphics(windowHeight / 2, windowHeight / 2, WEBGL);
+  moveRectGraphics = createGraphics(windowHeight / 2, windowHeight / 2, WEBGL);
+  randomCrossGraphics = createGraphics(windowHeight / 2, windowHeight / 2, WEBGL);
 }
 
 function draw() {
@@ -36,14 +46,33 @@ function draw() {
   waveSphereShader.setUniform('u_scroll', window.pageYOffset * 0.005);
   waveSphereGraphics.background(0);
   waveSphereGraphics.shader(waveSphereShader);
-  waveSphereGraphics.rect(300, 300, 100, 100);
-  image(waveSphereGraphics, -300, -300, 300, 300);
+  waveSphereGraphics.rect(windowHeight / 2, windowHeight / 2, 100, 100);
+  image(waveSphereGraphics, -windowHeight / 2, -windowHeight / 2, windowHeight / 2, windowHeight / 2);
+
+
+  repeatRectShader.setUniform('u_resolution', [width, height]);
+  repeatRectShader.setUniform('u_time', frameCount * 0.01);
+  repeatRectShader.setUniform('u_scroll', window.pageYOffset * 0.003);
+  repeatRectGraphics.background(0);
+  repeatRectGraphics.shader(repeatRectShader);
+  repeatRectGraphics.rect(windowHeight / 2, windowHeight / 2, 100, 100);
+  image(repeatRectGraphics, 0, 0, windowHeight / 2, windowHeight / 2);
+
 
   moveRectShader.setUniform('u_resolution', [width, height]);
   moveRectShader.setUniform('u_time', frameCount * 0.01);
-  moveRectShader.setUniform('u_scroll', window.pageYOffset * 0.003);
+  moveRectShader.setUniform('u_scroll', window.pageYOffset * 0.001);
   moveRectGraphics.background(0);
   moveRectGraphics.shader(moveRectShader);
-  moveRectGraphics.rect(300, 300, 100, 100);
-  image(moveRectGraphics, 0, -300, 300, 300);
+  moveRectGraphics.rect(windowHeight / 2, windowHeight / 2, 100, 100);
+  image(moveRectGraphics, -windowHeight / 2, 0, windowHeight / 2, windowHeight / 2);
+
+
+  randomCrossShader.setUniform('u_resolution', [width, height]);
+  randomCrossShader.setUniform('u_time', frameCount * 0.01);
+  randomCrossShader.setUniform('u_scroll', window.pageYOffset * 0.001);
+  randomCrossGraphics.background(0);
+  randomCrossGraphics.shader(randomCrossShader);
+  randomCrossGraphics.rect(windowHeight / 2, windowHeight / 2, 100, 100);
+  image(randomCrossGraphics, 0, -windowHeight / 2, windowHeight / 2, windowHeight / 2);
 }

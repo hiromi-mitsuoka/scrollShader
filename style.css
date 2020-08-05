@@ -1,6 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  background: #000;
 }
 canvas {
   display: block;
@@ -13,8 +14,12 @@ canvas {
 #scrollPage{
   width: 45%;
   float: right;
-  /* background: #f1f1f1; */
+  background: #000;
 }
 h1{
   text-align: center;
+  letter-spacing: 3px;
+  color: #fff;
+  line-height: 10;
+  font-weight: bold;
 }

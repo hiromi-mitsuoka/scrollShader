@@ -6,26 +6,19 @@ uniform vec2 u_resolution;
 uniform float u_time;
 uniform float u_scroll;
 
-//連続輪の四角版の実装
-
 void main(){
   vec2 st=gl_FragCoord.xy/u_resolution.xy;
   vec3 color=vec3(0.);
   
   st*=2.;
   
-  float pct=0.;
-  pct=distance(st.x,.5);
-  pct+=distance(st.y,.5);
-  // pct*=3.;
-  pct*=3.+u_scroll*u_scroll*.1;
-  // pct*=u_time*10.;
-  pct=floor(pct);
-  pct=abs(sin(pct-u_scroll*3.));
-  // pct=abs(sin(pct-u_time*3.));
-  pct=step(pct,.5);
+  vec2 bl=smoothstep(st,vec2(0.+.5*abs(sin(u_scroll))),vec2(.1+.1*abs(cos(u_scroll*.6))));
+  vec2 tr=smoothstep(1.-st,vec2(0.+.5*abs(sin(u_scroll*.8))),vec2(.1+.1*abs(cos(u_scroll*.4))));
   
-  color=vec3(pct);
+  bl+=u_scroll*.01;
+  tr-=u_scroll*.01;
+  
+  color=vec3(bl.x*bl.y*tr.x*tr.y);
   
   gl_FragColor=vec4(color,1.);
 }
